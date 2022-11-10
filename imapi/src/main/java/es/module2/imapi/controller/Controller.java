@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.module2.imapi.model.Intrusion;
-import es.module2.imapi.service.Service;
+import es.module2.imapi.service.IMAPIService;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("")
@@ -30,29 +31,29 @@ class Controller {
     private static final Logger log = LoggerFactory.getLogger(Controller.class);
 
     @Autowired
-    private Service service;
+    private IMAPIService service;
 
     @PostMapping("/intrusion")
-    public ResponseEntity<> intrusion(@RequestBody Intrusion intrusion) {
+    public ResponseEntity<String> intrusion(@RequestBody Intrusion intrusion) {
         log.info("POST Request -> Send Message to get Camera Videos");
         try {
             service.intrusion(intrusion);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (PropertyAlreadyExistsException | OwnerDoesNotExistException e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PostMapping("/videoClips")
-    public ResponseEntity<> sendVideo(@RequestBody MultipartFile multipartFile) {
-        log.info("POST Request -> Store Camera Videos");
-        try {
-            service.save(multipartFile);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (PropertyAlreadyExistsException | OwnerDoesNotExistException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
+    // @PostMapping("/videoClips")
+    // public ResponseEntity<String> sendVideo(@RequestBody MultipartFile multipartFile) {
+    //     log.info("POST Request -> Store Camera Videos");
+    //     try {
+    //         service.save(multipartFile);
+    //         return new ResponseEntity<>(HttpStatus.OK);
+    //     } catch (Exception e) {
+    //         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    //     }
+    // }
 
 
 
