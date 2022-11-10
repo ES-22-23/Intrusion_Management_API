@@ -27,7 +27,7 @@ public class ProducerConfig {
 
     @Bean
     public Queue queue() {
-        return new Queue(queue_name,false);
+        return new Queue(queue_name,true);
     }
     
     // @Bean
