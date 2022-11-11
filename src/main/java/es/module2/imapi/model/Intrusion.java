@@ -12,17 +12,17 @@ import lombok.NonNull;
 public class Intrusion {
 
     @NonNull
-    private String cameraId;
+    private long cameraId;
 
     @NonNull
     private String timestamp;
 
 
-    public String getCameraId() {
+    public long getCameraId() {
         return this.cameraId;
     }
 
-    public void setCameraId(String cameraId) {
+    public void setCameraId(long cameraId) {
         this.cameraId = cameraId;
     }
 
@@ -38,8 +38,8 @@ public class Intrusion {
     @Override
     public String toString() {
         return "{" +
-            " cameraId='" + getCameraId() + "'" +
-            ", timestamp='" + getTimestamp() + "'" +
+            " \"cameraId\":" + getCameraId()  +
+            ", \"timestamp\":\"" + getTimestamp() + "\"" +
             "}";
     }
 

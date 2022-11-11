@@ -44,16 +44,19 @@ class Controller {
         }
     }
 
-    // @PostMapping("/videoClips")
-    // public ResponseEntity<String> sendVideo(@RequestBody MultipartFile multipartFile) {
-    //     log.info("POST Request -> Store Camera Videos");
-    //     try {
-    //         service.save(multipartFile);
-    //         return new ResponseEntity<>(HttpStatus.OK);
-    //     } catch (Exception e) {
-    //         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    //     }
-    // }
+    @PostMapping("/videoClips")
+    public ResponseEntity<String> sendVideo(@RequestBody MultipartFile multipartFile) {
+        log.info("POST Request -> Store Camera Videos");
+        
+        return new ResponseEntity<>(HttpStatus.OK);
+
+        // try {
+        //     service.save(multipartFile);
+        //     return new ResponseEntity<>(HttpStatus.OK);
+        // } catch (Exception e) {
+        //     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        // }
+    }
 
 
 
