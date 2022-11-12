@@ -48,17 +48,19 @@ class Controller {
     public ResponseEntity<String> sendVideo(@RequestBody MultipartFile multipartFile) {
         log.info("POST Request -> Store Camera Videos");
         
-        return new ResponseEntity<>(HttpStatus.OK);
+        //return new ResponseEntity<>(HttpStatus.OK);
 
-        // try {
-        //     service.save(multipartFile);
-        //     return new ResponseEntity<>(HttpStatus.OK);
-        // } catch (Exception e) {
-        //     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        // }
-    }
-
-
-
-        
+        String fileName = multipartFile.getOriginalFilename();
+         
+        log.info("FileName: " + fileName);
+         
+        try {
+            service.uploadFile(fileName, multipartFile.getInputStream());
+            log.info("Upload Successful: " + fileName);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception ex) {
+            log.info("Upload Error: " + fileName);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }    
 }

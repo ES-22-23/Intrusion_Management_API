@@ -1,24 +1,26 @@
 package es.module2.imapi.service;
 
-import org.springframework.stereotype.Service;
+import java.io.IOException;
+import java.io.InputStream;
 
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.time.LocalDateTime;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.util.Base64;
+
 import es.module2.imapi.model.Intrusion;
+import software.amazon.awssdk.awscore.exception.AwsServiceException;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 
 @Service
 public class IMAPIService {
@@ -31,42 +33,21 @@ public class IMAPIService {
     @Autowired
     private Producer producer;
 
-    // @Value("${s3.bucket.name}")
-    // private String s3BucketName;
+    @Value("${s3.bucket.name}")
+    private static String s3BucketName;
 
-    // private File convertMultiPartFileToFile(final MultipartFile multipartFile) {
-    //     final File file = new File(multipartFile.getOriginalFilename());
-    //     try (final FileOutputStream outputStream = new FileOutputStream(file)) {
-    //         outputStream.write(multipartFile.getBytes());
-    //     } catch (IOException e) {
-    //         LOG.error("Error {} occurred while converting the multipart file", e.getLocalizedMessage());
-    //     }
-    //     return file;
-    // }
-
-    // // @Async annotation ensures that the method is executed in a different thread
-
-    // //@Async
-    // public S3ObjectInputStream findByName(String fileName) {
-    //     LOG.info("Downloading file with name {}", fileName);
-    //     return amazonS3.getObject(s3BucketName, fileName).getObjectContent();
-    // }
-
-    // //@Async
-    // public void save( MultipartFile multipartFile) {
-    //     try {
-    //         final File file = convertMultiPartFileToFile(multipartFile);
-    //         final String fileName = LocalDateTime.now() + "_" + file.getName();
-    //         LOG.info("Uploading file with name {}", fileName);
-    //         final PutObjectRequest putObjectRequest = new PutObjectRequest(s3BucketName, fileName, file);
-    //         amazonS3.putObject(putObjectRequest);
-    //         Files.delete(file.toPath()); // Remove the file locally created in the project folder
-    //     } catch (AmazonServiceException e) {
-    //         LOG.error("Error {} occurred while uploading file", e.getLocalizedMessage());
-    //     } catch (IOException ex) {
-    //         LOG.error("Error {} occurred while deleting temporary file", ex.getLocalizedMessage());
-    //     }
-    // }
+    public void uploadFile(String fileName, InputStream inputStream)
+            throws S3Exception, AwsServiceException, SdkClientException, IOException {
+        
+        S3Client client = S3Client.builder().build();
+         
+        PutObjectRequest request = PutObjectRequest.builder()
+                                    .bucket(s3BucketName)
+                                    .key(fileName)
+                                    .build();
+        client.putObject(request,
+                RequestBody.fromInputStream(inputStream, inputStream.available()));
+    }
 
     public void intrusion(Intrusion intrusion){
         log.info("Service -> intrusion method");

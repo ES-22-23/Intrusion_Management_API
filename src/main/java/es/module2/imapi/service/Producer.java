@@ -20,11 +20,8 @@ public class Producer {
     @Value("${rabbitmq.queue.name}")
     private String queue_name;
 
-
-
     @Autowired
     private RabbitTemplate rabbitTemplate;
-
 
     public void send(Intrusion msg) {
         log.info("Producer -> Sending message" + msg.toString());

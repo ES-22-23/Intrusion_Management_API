@@ -1,4 +1,4 @@
-package es.module2.smapi.config;
+package es.module2.imapi.config;
 
 // import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 // import org.springframework.context.annotation.Bean;

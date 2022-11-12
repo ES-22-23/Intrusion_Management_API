@@ -35,12 +35,18 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+			<dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>bom</artifactId>
+                <version>2.15.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 	
 
 	<dependencies>
-
 		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
 		<dependency>
 			<groupId>com.amazonaws</groupId>
@@ -126,7 +132,10 @@
 		<groupId>org.keycloak</groupId>
 		<artifactId>keycloak-spring-boot-starter</artifactId>
 	</dependency> -->
-
+	<dependency>
+		<groupId>software.amazon.awssdk</groupId>
+		<artifactId>s3</artifactId>
+	</dependency>
 
 	</dependencies>
 
