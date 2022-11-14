@@ -38,6 +38,7 @@ public class IMAPIService {
 
     public void uploadFile(String fileName, InputStream inputStream)
             throws S3Exception, AwsServiceException, SdkClientException, IOException {
+        log.info("Service -> Upload file method");
         
         S3Client client = S3Client.builder().build();
          

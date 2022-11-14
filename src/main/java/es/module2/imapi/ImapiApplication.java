@@ -8,6 +8,7 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 @SpringBootApplication
 public class ImapiApplication {
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(ImapiApplication.class, args);
 	}
