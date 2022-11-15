@@ -1,6 +1,7 @@
 package es.module2.imapi.service;
 
 import  es.module2.imapi.model.Intrusion;
+import  es.module2.imapi.model.HealthStatus;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

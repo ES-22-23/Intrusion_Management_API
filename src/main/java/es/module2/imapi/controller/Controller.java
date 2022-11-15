@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestPart;
+import es.module2.imapi.model.HealthStatus;
 
 @RestController
 @RequestMapping("")
@@ -49,6 +50,11 @@ class Controller {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/health")
+    public HealthStatus getHealthStatus() {
+        return service.getHealthStatus();
     }
 
     @RequestMapping(path = "/videoClips", method = POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })

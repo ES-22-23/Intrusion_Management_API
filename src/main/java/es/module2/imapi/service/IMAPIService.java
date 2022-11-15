@@ -14,6 +14,7 @@ import com.amazonaws.SdkClientException;
 import com.amazonaws.util.Base64;
 
 import es.module2.imapi.model.Intrusion;
+import es.module2.imapi.model.HealthStatus;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -54,6 +55,10 @@ public class IMAPIService {
         log.info("Service -> intrusion method");
         //add rabbit mq
         producer.send(intrusion);
+    }
+
+    public HealthStatus getHealthStatus() {
+        return new HealthStatus(true, true);
     }
 
 }
