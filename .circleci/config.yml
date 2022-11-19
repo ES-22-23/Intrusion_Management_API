@@ -1,0 +1,51 @@
+version: 2.1
+
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run: 
+          command: |
+            mvn package -Dmaven.test.skip=true
+      - run:
+          name: Copy JAR file
+          command: |
+            mkdir -p ~/artifacts/
+            cd ./target
+            find . -name "*.jar" -exec cp {} ~/artifacts/ \;
+      - store_artifacts:
+          path: ~/artifacts
+          destination: artifact-file
+  test:
+    machine: true 
+    environment: 
+      {"CODACY_PROJECT_TOKEN":9ad8eb74a4654417a0a879df076394b3}
+    steps:
+      - checkout
+      - run: 
+          command: |
+            mvn verify
+      - run:
+          name: Save test results and code coverage report
+          command: |
+            mkdir -p ~/test-results/junit/
+            mkdir -p ~/code-report/
+            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/test-results/junit/ \;
+            find . -type f -regex ".*/target/failsafe-reports/.*xml" -exec cp {} ~/test-results/junit/ \;
+            find . -type f -regex ".*/jacoco.xml" -exec cp {} ~/code-report/ \;
+          when: always
+      - run:
+          name: Upload code coverage
+          command: |
+            bash <(curl -Ls https://coverage.codacy.com/get.sh)
+      - store_test_results:
+          path: ~/test-results/junit
+      - store_artifacts:
+          path: ~/code-report
+  
+workflows:
+  build-and-test:
+    jobs:
+      - test
+      - build
