@@ -68,10 +68,9 @@ class Controller {
          
         log.info("FileName: " + fileName);
         log.info("Original FileName: " + document.getOriginalFilename());
-
          
         try {
-            service.uploadFile(fileName, document.getInputStream());//video.getVideo_parts().getInputStream());
+            service.uploadFile(fileName, document);//video.getVideo_parts().getInputStream());
             log.info("Upload Successful: " + fileName);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception ex) {
