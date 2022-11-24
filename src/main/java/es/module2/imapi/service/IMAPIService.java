@@ -46,9 +46,18 @@ public class IMAPIService {
             throws S3Exception, AwsServiceException, SdkClientException, IOException {
         log.info("Service -> Upload file method");
 
+        // Filename: "cam"+str(self.camera_id)+"Video"+dict["timestamp"]}
+
+        int indexV = fileName.indexOf("V");
+        int indexC = fileName.indexOf("c");
+        String substring = fileName.substring(0, indexV);
+        String lastPart = fileName.substring(indexV);
+        String firstPart = substring.substring(0,indexC);
+        String middlePart = substring.substring(indexC);
+
         File fileObj = convertMultiPartFileToFile(multipartFile);
 
-        s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
+        s3Client.putObject(new PutObjectRequest(bucketName, firstPart + "/" + middlePart + "/" + lastPart, fileObj));
         fileObj.delete();
     }
 
