@@ -1,14 +1,13 @@
 package es.module2.imapi.service;
 
-import  es.module2.imapi.model.Intrusion;
-import  es.module2.imapi.model.HealthStatus;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import  es.module2.imapi.model.Intrusion;
 
 @Component
 public class Producer {

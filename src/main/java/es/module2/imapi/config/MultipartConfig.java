@@ -1,17 +1,11 @@
 package es.module2.imapi.config;
 
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.context.annotation.Bean;
-
 import org.springframework.context.annotation.Configuration;
-import org.springframework.beans.factory.annotation.Value;
-import javax.servlet.MultipartConfigElement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Configuration
-public class MultiparConfig {
-
-
+public class MultipartConfig {
 
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() {
