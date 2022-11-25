@@ -16,8 +16,11 @@ import org.slf4j.LoggerFactory;
 public class ProducerConfig {
     private static final Logger log = LoggerFactory.getLogger(ProducerConfig.class);
 
-    @Value("${rabbitmq.queue.name}")
-    private String queue_name;
+    @Value("${rabbitmq.cam.queue.name}")
+    private String cam_queue;
+
+    @Value("${rabbitmq.alarm.queue.name}")
+    private String alarm_queue;
 
     // @Value("${rabbitmq.exchange.name}")
     // private String exchange;
@@ -26,8 +29,14 @@ public class ProducerConfig {
     // private String routingKey;
 
     @Bean
-    public Queue queue() {
-        return new Queue(queue_name,true);
+    public Queue cam_queue() {
+        return new Queue(cam_queue,true);
+    }
+
+
+    @Bean
+    public Queue alarm_queue() {
+        return new Queue(alarm_queue,true);
     }
     
     // @Bean

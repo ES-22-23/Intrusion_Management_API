@@ -56,6 +56,16 @@ public class IMAPIService {
         log.info("Service -> intrusion method");
         // add rabbit mq
         producer.send(intrusion);
+
+        producer.activate_alarms("1");
+    }
+
+    public void activate_alarms(String PropId) {
+        log.info("Service -> activate alarms method");
+        // add rabbit mq
+
+
+        producer.activate_alarms("1");
     }
 
     public HealthStatus getHealthStatus() {
