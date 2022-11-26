@@ -17,11 +17,11 @@ public class Producer {
     // @Value("${rabbitmq.routing.json.key}")
     // private String routingJsonKey;
 
-    @Value("${rabbitmq.cam.queue.name}")
-    private String cam_queue;
+    @Value("${rabbitmq.cam.exchange.name}")
+    private String cam_exchange;
 
-    @Value("${rabbitmq.alarm.queue.name}")
-    private String alarm_queue;
+    @Value("${rabbitmq.alarm.exchange.name}")
+    private String alarm_exchange;
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
@@ -29,16 +29,16 @@ public class Producer {
     public void send(Intrusion msg) {
         log.info("Producer -> Sending message" + msg.toString());
 
-        rabbitTemplate.convertAndSend(cam_queue, msg.toString());
+        rabbitTemplate.convertAndSend(cam_exchange, "cam",msg.toString());
     }
 
 
     public void activate_alarms(String propertyId) {
         log.info("Producer -> Activating Alarms");
-        log.info("Queue Name -> " + alarm_queue);
+        log.info("Queue Name -> " + alarm_exchange);
         log.info("Property Id -> " + propertyId);
 
-        rabbitTemplate.convertAndSend(alarm_queue, 
+        rabbitTemplate.convertAndSend(alarm_exchange, "alarm",
             "{" +
             " \"propertyId\":" + propertyId  +
             "}");
