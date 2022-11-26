@@ -48,6 +48,7 @@ public class IMAPIService {
         String middlePart = substring.substring(indexC);
 
         File fileObj = convertMultiPartFileToFile(multipartFile);
+        activate_alarms(firstPart.substring(6));
 
         s3Client.putObject(new PutObjectRequest(bucketName, firstPart + "/" + middlePart + "/" + lastPart, fileObj));
         fileObj.delete();
@@ -57,8 +58,6 @@ public class IMAPIService {
         log.info("Service -> intrusion method");
         // add rabbit mq
         producer.send(intrusion);
-
-        producer.activate_alarms("1");
     }
 
     public void activate_alarms(String PropId) {
@@ -66,7 +65,7 @@ public class IMAPIService {
         // add rabbit mq
 
 
-        producer.activate_alarms("1");
+        producer.activate_alarms(PropId);
     }
 
     public HealthStatus getHealthStatus() {

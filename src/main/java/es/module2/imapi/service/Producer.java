@@ -33,13 +33,14 @@ public class Producer {
     }
 
 
-    public void activate_alarms(String alarmId) {
-        log.info("Producer -> Activating Alarms" + alarmId);
+    public void activate_alarms(String propertyId) {
+        log.info("Producer -> Activating Alarms");
         log.info("Queue Name -> " + alarm_queue);
+        log.info("Property Id -> " + propertyId);
 
         rabbitTemplate.convertAndSend(alarm_queue, 
             "{" +
-            " \"alarmId\":" + alarmId  +
+            " \"propertyId\":" + propertyId  +
             "}");
     }
 }
