@@ -16,8 +16,8 @@ import org.springframework.amqp.core.BindingBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @EnableRabbit
 @Configuration
@@ -54,13 +54,21 @@ public class ProducerConfig {
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(host, port);
-        connectionFactory.setUsername(username);
-        connectionFactory.setPassword(password);
+        CachingConnectionFactory connectionFactory=null;
+        try{
+            connectionFactory = new CachingConnectionFactory(new URI("amqps://"+username+":"+password+"@"+host));
+            //connectionFactory.setUsername(username);
+            //connectionFactory.setPassword(password);
 
-        log.info("Creating connection factory with rabbit mq");
+            log.info("Creating connection factory with rabbit mq: "+ connectionFactory.toString());
 
-        return connectionFactory;
+            return connectionFactory;
+        } catch (URISyntaxException e){
+            log.error("URI ERROR");
+
+        }
+            return connectionFactory;
+        
     }
 
     /**
