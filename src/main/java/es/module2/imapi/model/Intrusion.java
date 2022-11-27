@@ -37,7 +37,7 @@ public class Intrusion {
     @Override
     public String toString() {
         return "{" +
-            " \"cameraId\":" + getCameraId()  +
+            " \"cameraId\":\"" + getCameraId() +"\"" +
             ", \"timestamp\":\"" + getTimestamp() + "\"" +
             "}";
     }
