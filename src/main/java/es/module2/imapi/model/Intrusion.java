@@ -11,17 +11,17 @@ import lombok.NonNull;
 @NoArgsConstructor
 public class Intrusion {
 
-    private long cameraId;
+    private String cameraId;
 
     @NonNull
     private String timestamp;
 
 
-    public long getCameraId() {
+    public String getCameraId() {
         return this.cameraId;
     }
 
-    public void setCameraId(long cameraId) {
+    public void setCameraId(String cameraId) {
         this.cameraId = cameraId;
     }
 
