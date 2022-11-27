@@ -11,7 +11,6 @@ import lombok.NonNull;
 @NoArgsConstructor
 public class Intrusion {
 
-    @NonNull
     private long cameraId;
 
     @NonNull
