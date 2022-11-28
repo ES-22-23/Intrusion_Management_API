@@ -50,7 +50,7 @@ public class IMAPIService {
         File fileObj = convertMultiPartFileToFile(multipartFile);
         activate_alarms(firstPart.substring(6));
 
-        s3Client.putObject(new PutObjectRequest(bucketName, firstPart + "/" + middlePart + "/" + lastPart, fileObj));
+        s3Client.putObject(new PutObjectRequest(bucketName, firstPart + "/" + middlePart + "/" + lastPart + ".mp4", fileObj));
         fileObj.delete();
     }
 
