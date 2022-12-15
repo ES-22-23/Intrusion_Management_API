@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,11 +17,12 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import es.module2.imapi.model.HealthStatus;
-import es.module2.imapi.model.Intrusion;
+import es.module2.imapi.model.IntrusionDTO;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
 @Service
+@ConditionalOnProperty(name = "keycloak.enabled", havingValue = "true", matchIfMissing = true)
 public class IMAPIService {
 
     private static final Logger log = LoggerFactory.getLogger(Service.class);
@@ -54,7 +56,7 @@ public class IMAPIService {
         fileObj.delete();
     }
 
-    public void intrusion(Intrusion intrusion) {
+    public void intrusion(IntrusionDTO intrusion) {
         log.info("Service -> intrusion method");
         // add rabbit mq
         producer.send(intrusion);
