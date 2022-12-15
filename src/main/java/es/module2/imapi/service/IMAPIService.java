@@ -17,7 +17,9 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import es.module2.imapi.model.HealthStatus;
+import es.module2.imapi.model.Intrusion;
 import es.module2.imapi.model.IntrusionDTO;
+import es.module2.imapi.repository.IntrusionRepository;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
@@ -35,6 +37,9 @@ public class IMAPIService {
 
     @Autowired
     private Producer producer;
+
+    @Autowired
+    private IntrusionRepository intrusionRepository;
 
     public void uploadFile(String fileName, MultipartFile multipartFile)
             throws S3Exception, AwsServiceException, SdkClientException, IOException {
@@ -54,6 +59,14 @@ public class IMAPIService {
 
         s3Client.putObject(new PutObjectRequest(bucketName, firstPart + "/" + middlePart + "/" + lastPart + ".mp4", fileObj));
         fileObj.delete();
+
+        long propertyId = Long.valueOf(firstPart.substring(6)); //PropIdAAA -> we want AAA
+        String cameraId = middlePart.substring(3); //camAAA -> we want AAA
+        String timestamp = lastPart.substring(5); //VideoAAA -> we want AAA
+
+        Intrusion intrusion = new Intrusion(propertyId, cameraId, timestamp, firstPart + "/" + middlePart + "/" + lastPart + ".mp4");
+
+        intrusionRepository.saveAndFlush(intrusion);
     }
 
     public void intrusion(IntrusionDTO intrusion) {
