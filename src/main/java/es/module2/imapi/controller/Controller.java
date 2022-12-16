@@ -5,6 +5,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.module2.imapi.model.HealthStatus;
-import es.module2.imapi.model.Intrusion;
+import es.module2.imapi.model.IntrusionDetectedDTO;
 import es.module2.imapi.service.IMAPIService;
 
 @RestController
@@ -27,6 +28,7 @@ import es.module2.imapi.service.IMAPIService;
 @Validated
 //@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 //@CrossOrigin(origins = "http://panel.admin.hgsoft.me:3000/", allowedHeaders = "*")
+@ConditionalOnProperty(name = "keycloak.enabled", havingValue = "true", matchIfMissing = true)
 class Controller {
     private static final Logger log = LoggerFactory.getLogger(Controller.class);
 
@@ -34,7 +36,7 @@ class Controller {
     private IMAPIService service;
 
     @PostMapping("/intrusion")
-    public ResponseEntity<?> intrusion(@RequestBody Intrusion intrusion) {
+    public ResponseEntity<?> intrusion(@RequestBody IntrusionDetectedDTO intrusion) {
         log.info("POST Request -> Send Message to get Camera Videos");
         try {
             service.intrusion(intrusion);

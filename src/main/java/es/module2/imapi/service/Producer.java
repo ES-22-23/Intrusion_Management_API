@@ -5,11 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-import  es.module2.imapi.model.Intrusion;
+import es.module2.imapi.model.IntrusionDetectedDTO;
 
 @Component
+@ConditionalOnProperty(name = "keycloak.enabled", havingValue = "true", matchIfMissing = true)
 public class Producer {
 
     private static final Logger log = LoggerFactory.getLogger(Producer.class);
@@ -26,7 +28,7 @@ public class Producer {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    public void send(Intrusion msg) {
+    public void send(IntrusionDetectedDTO msg) {
         log.info("Producer -> Sending message" + msg.toString());
 
         rabbitTemplate.convertAndSend(cam_exchange, "cam",msg.toString());
