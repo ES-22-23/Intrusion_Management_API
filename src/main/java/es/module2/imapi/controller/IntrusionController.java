@@ -55,7 +55,7 @@ public class IntrusionController {
         return new ResponseEntity<>(service.getVideoKeysFromMultipleProperties(propertiesIds), HttpStatus.OK);
     }
 
-    @GetMapping("/")
+    @GetMapping("/url")
     public ResponseEntity<String> getVideoUrl(@RequestParam long eventId) {
         log.info("GET Request -> Get Video");
         String videoUrl = service.getVideoUrl(eventId);
