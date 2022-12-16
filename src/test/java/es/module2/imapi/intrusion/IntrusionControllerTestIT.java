@@ -67,9 +67,9 @@ public class IntrusionControllerTestIT {
         .then().log().body().assertThat()
         .status(HttpStatus.OK).and()
         .contentType(ContentType.JSON).and()
-        .body("[0]", is(intrusion1.getVideoKey())).and()
-        .body("[1]", is(intrusion2.getVideoKey())).and()
-        .body("[2]", is(intrusion3.getVideoKey()));
+        .body("[0].videoKey", is(intrusion1.getVideoKey())).and()
+        .body("[1].videoKey", is(intrusion2.getVideoKey())).and()
+        .body("[2].videoKey", is(intrusion3.getVideoKey()));
     }
 
     @Test
@@ -79,8 +79,8 @@ public class IntrusionControllerTestIT {
         .then().log().body().assertThat()
         .status(HttpStatus.OK).and()
         .contentType(ContentType.JSON).and()
-        .body("[0]", is(intrusion1.getVideoKey())).and()
-        .body("[1]", is(intrusion2.getVideoKey()));
+        .body("[0].videoKey", is(intrusion1.getVideoKey())).and()
+        .body("[1].videoKey", is(intrusion2.getVideoKey()));
     }
 
     @Test
@@ -90,7 +90,7 @@ public class IntrusionControllerTestIT {
         .then().log().body().assertThat()
         .status(HttpStatus.OK).and()
         .contentType(ContentType.JSON).and()
-        .body("[0]", is(intrusion1.getVideoKey()));
+        .body("[0].videoKey", is(intrusion1.getVideoKey()));
     }
 
     @Test
@@ -106,8 +106,8 @@ public class IntrusionControllerTestIT {
         .then().log().body().assertThat()
         .status(HttpStatus.OK).and()
         .contentType(ContentType.JSON).and()
-        .body("[0]", is(intrusion1.getVideoKey())).and()
-        .body("[1]", is(intrusion2.getVideoKey())).and()
-        .body("[2]", is(intrusion3.getVideoKey()));
+        .body("[0].videoKey", is(intrusion1.getVideoKey())).and()
+        .body("[1].videoKey", is(intrusion2.getVideoKey())).and()
+        .body("[2].videoKey", is(intrusion3.getVideoKey()));
     }
 }

@@ -21,6 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.amazonaws.services.s3.AmazonS3;
 
 import es.module2.imapi.model.Intrusion;
+import es.module2.imapi.model.IntrusionDTO;
 import es.module2.imapi.repository.IntrusionRepository;
 import es.module2.imapi.service.IntrusionService;
 
@@ -71,11 +72,11 @@ public class IntrusionServiceTest {
 
         Mockito.when(intrusionRepository.findByPropertyId(1)).thenReturn(allEvents);
 
-        List<String> result = service.getVideoKeysFromProperty(1);
+        List<IntrusionDTO> result = service.getVideoKeysFromProperty(1);
 
         assertEquals(allEvents.size(), result.size());
-        assertTrue(result.contains(intrusion1.getVideoKey()));
-        assertTrue(result.contains(intrusion2.getVideoKey()));
+        assertTrue(result.contains(intrusion1.convertToDTO()));
+        assertTrue(result.contains(intrusion2.convertToDTO()));
     }
 
     @Test
@@ -88,12 +89,12 @@ public class IntrusionServiceTest {
 
         Mockito.when(intrusionRepository.findAll()).thenReturn(allEvents);
 
-        List<String> result = service.getAllVideoKeys();
+        List<IntrusionDTO> result = service.getAllVideoKeys();
 
         assertEquals(allEvents.size(), result.size());
-        assertTrue(result.contains(intrusion1.getVideoKey()));
-        assertTrue(result.contains(intrusion2.getVideoKey()));
-        assertTrue(result.contains(intrusion3.getVideoKey()));
+        assertTrue(result.contains(intrusion1.convertToDTO()));
+        assertTrue(result.contains(intrusion2.convertToDTO()));
+        assertTrue(result.contains(intrusion3.convertToDTO()));
     }
 
     @Test
@@ -104,10 +105,10 @@ public class IntrusionServiceTest {
 
         Mockito.when(intrusionRepository.findByCameraId("2")).thenReturn(allEvents);
 
-        List<String> result = service.getVideoKeysFromCamera("2");
+        List<IntrusionDTO> result = service.getVideoKeysFromCamera("2");
 
         assertEquals(allEvents.size(), result.size());
-        assertTrue(result.contains(intrusion2.getVideoKey()));
-        assertTrue(result.contains(intrusion2.getVideoKey()));
+        assertTrue(result.contains(intrusion2.convertToDTO()));
+        assertTrue(result.contains(intrusion2.convertToDTO()));
     }
 }

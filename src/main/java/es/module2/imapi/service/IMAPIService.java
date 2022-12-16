@@ -18,7 +18,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import es.module2.imapi.model.HealthStatus;
 import es.module2.imapi.model.Intrusion;
-import es.module2.imapi.model.IntrusionDTO;
+import es.module2.imapi.model.IntrusionDetectedDTO;
 import es.module2.imapi.repository.IntrusionRepository;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -69,7 +69,7 @@ public class IMAPIService {
         intrusionRepository.saveAndFlush(intrusion);
     }
 
-    public void intrusion(IntrusionDTO intrusion) {
+    public void intrusion(IntrusionDetectedDTO intrusion) {
         log.info("Service -> intrusion method");
         // add rabbit mq
         producer.send(intrusion);

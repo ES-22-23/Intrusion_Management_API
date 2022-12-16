@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.module2.imapi.model.IntrusionDTO;
 import es.module2.imapi.service.IntrusionService;
 
 @RestController
@@ -27,28 +28,28 @@ public class IntrusionController {
     private IntrusionService service;
 
     @GetMapping()
-    public ResponseEntity<List<String>> getAllVideos(){
+    public ResponseEntity<List<IntrusionDTO>> getAllVideos(){
         log.info("GET Request -> Get all videos");
 
         return new ResponseEntity<>(service.getAllVideoKeys(), HttpStatus.OK);
     }
 
     @GetMapping("/property/{propertyId}")
-    public ResponseEntity<List<String>> getVideosFromProperty(@PathVariable long propertyId) {
+    public ResponseEntity<List<IntrusionDTO>> getVideosFromProperty(@PathVariable long propertyId) {
         log.info("GET Request -> Get videos from Property");
         
         return new ResponseEntity<>(service.getVideoKeysFromProperty(propertyId), HttpStatus.OK);
     }
 
     @GetMapping("/camera/{cameraId}")
-    public ResponseEntity<List<String>> getVideosFromCamera(@PathVariable String cameraId) {
+    public ResponseEntity<List<IntrusionDTO>> getVideosFromCamera(@PathVariable String cameraId) {
         log.info("GET Request -> Get videos from Camera");
         
         return new ResponseEntity<>(service.getVideoKeysFromCamera(cameraId), HttpStatus.OK);
     }
 
     @GetMapping("/properties")
-    public ResponseEntity<List<String>> getVideosFromProperties(@RequestBody List<Long> propertiesIds){
+    public ResponseEntity<List<IntrusionDTO>> getVideosFromProperties(@RequestBody List<Long> propertiesIds){
         log.info("GET Request -> Get videos from Multiple Properties");
         
         return new ResponseEntity<>(service.getVideoKeysFromMultipleProperties(propertiesIds), HttpStatus.OK);

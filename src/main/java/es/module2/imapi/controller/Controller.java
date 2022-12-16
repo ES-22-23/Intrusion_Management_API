@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.module2.imapi.model.HealthStatus;
-import es.module2.imapi.model.IntrusionDTO;
+import es.module2.imapi.model.IntrusionDetectedDTO;
 import es.module2.imapi.service.IMAPIService;
 
 @RestController
@@ -36,7 +36,7 @@ class Controller {
     private IMAPIService service;
 
     @PostMapping("/intrusion")
-    public ResponseEntity<?> intrusion(@RequestBody IntrusionDTO intrusion) {
+    public ResponseEntity<?> intrusion(@RequestBody IntrusionDetectedDTO intrusion) {
         log.info("POST Request -> Send Message to get Camera Videos");
         try {
             service.intrusion(intrusion);

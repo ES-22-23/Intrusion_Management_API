@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-import es.module2.imapi.model.IntrusionDTO;
+import es.module2.imapi.model.IntrusionDetectedDTO;
 
 @Component
 @ConditionalOnProperty(name = "keycloak.enabled", havingValue = "true", matchIfMissing = true)
@@ -28,7 +28,7 @@ public class Producer {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    public void send(IntrusionDTO msg) {
+    public void send(IntrusionDetectedDTO msg) {
         log.info("Producer -> Sending message" + msg.toString());
 
         rabbitTemplate.convertAndSend(cam_exchange, "cam",msg.toString());

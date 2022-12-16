@@ -17,6 +17,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 
 import es.module2.imapi.model.Intrusion;
+import es.module2.imapi.model.IntrusionDTO;
 import es.module2.imapi.repository.IntrusionRepository;
 
 @Service
@@ -77,22 +78,22 @@ public class IntrusionService {
         }
     }
 
-    public List<String> getAllVideoKeys(){
+    public List<IntrusionDTO> getAllVideoKeys(){
           
         List<Intrusion> allEvents = intrusionRepository.findAll();
 
-        List<String> objectKeys = new ArrayList<>();
+        List<IntrusionDTO> objectKeys = new ArrayList<>();
 
         for (Intrusion event : allEvents) {
-            objectKeys.add(event.getVideoKey());
+            objectKeys.add(event.convertToDTO());
         }
 
         return objectKeys;
     }
 
-    public List<String> getVideoKeysFromMultipleProperties(List<Long> propertiesIds){
+    public List<IntrusionDTO> getVideoKeysFromMultipleProperties(List<Long> propertiesIds){
         
-        List<String> objectKeys = new ArrayList<>();
+        List<IntrusionDTO> objectKeys = new ArrayList<>();
 
         for (long propertyId : propertiesIds) {
             
@@ -102,28 +103,28 @@ public class IntrusionService {
         return objectKeys;
     }
 
-    public List<String> getVideoKeysFromProperty(long propertyId){
+    public List<IntrusionDTO> getVideoKeysFromProperty(long propertyId){
         
         List<Intrusion> allIntrusions = intrusionRepository.findByPropertyId(propertyId);
 
-        List<String> objectKeys = new ArrayList<>();
+        List<IntrusionDTO> objectKeys = new ArrayList<>();
 
         for (Intrusion intrusion : allIntrusions) {
             
-            objectKeys.add(intrusion.getVideoKey());
+            objectKeys.add(intrusion.convertToDTO());
         }
 
         return objectKeys;
     }
 
-    public List<String> getVideoKeysFromCamera(String cameraId){
+    public List<IntrusionDTO> getVideoKeysFromCamera(String cameraId){
         
         List<Intrusion> allEvents = intrusionRepository.findByCameraId(cameraId);
 
-        List<String> objectKeys = new ArrayList<>();
+        List<IntrusionDTO> objectKeys = new ArrayList<>();
 
         for (Intrusion event : allEvents) {
-            objectKeys.add(event.getVideoKey());
+            objectKeys.add(event.convertToDTO());
         }
 
         return objectKeys;

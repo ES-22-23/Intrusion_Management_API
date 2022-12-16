@@ -43,4 +43,9 @@ public class Intrusion implements Serializable{
         this.timestamp = timestamp;
         this.videoKey = videoKey;
     }
+
+    public IntrusionDTO convertToDTO(){
+        IntrusionDTO newDTO = new IntrusionDTO(id, propertyId, cameraId, timestamp, videoKey);
+        return newDTO;
+    }
 }
