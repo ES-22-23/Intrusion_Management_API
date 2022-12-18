@@ -3,6 +3,7 @@ package es.module2.imapi.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +85,7 @@ public class IMAPIService {
     }
 
     public HealthStatus getHealthStatus() {
-        return new HealthStatus(true, new List<?>());
+        return new HealthStatus(true, new ArrayList<>());
     }
 
     private File convertMultiPartFileToFile(MultipartFile multipartFile){
