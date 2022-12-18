@@ -7,6 +7,6 @@ import java.util.List;
 public class HealthStatus {
 
     private final boolean isHealthy;
-    private final list<?> additionalProperties;
+    private final List<?> additionalProperties;
 
 }
